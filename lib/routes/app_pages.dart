@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:login/main.dart';
+import 'package:login/screens/splashScreen/splash_screen.dart';
 import 'package:login/sistemLoginRegister/screens/loginScreen/login_screen.dart';
 import 'package:login/sistemLoginRegister/screens/registerscreen/register_screen.dart';
+import 'package:login/sistemLoginRegister/screens/welcomeScreen/welcome_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case '/':
-      //   return MaterialPageRoute(builder: (_) => MyApp());
+      case '/':
+        return MaterialPageRoute(builder: (_) => MyApp());
+      case '/splash':
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+      case '/welcome':
+        return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/register':

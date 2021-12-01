@@ -1,6 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:login/constants.dart';
+import 'package:flutter/gestures.dart';
+import 'package:get/get.dart';
+import 'package:login/services/auth_controller.dart';
 import 'package:login/sistemLoginRegister/components/backgrounds.dart';
 import 'package:login/sistemLoginRegister/components/header_page.dart';
 import 'package:login/sistemLoginRegister/components/primary_button.dart';
@@ -17,10 +19,9 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
-  final TextEditingController _userController = TextEditingController();
-
-  final TextEditingController _passwordController = TextEditingController();
-
+  final TextEditingController _emailController = TextEditingController(text: "putraramadhan532@gmail.com");
+  final TextEditingController _passwordController = TextEditingController(text: "123123123");
+  final authC = Get.find<AuthController>();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -40,13 +41,13 @@ class _BodyState extends State<Body> {
 
             //TITLE HALAMAN
             Container(
-              margin: EdgeInsets.only(top: size.height * 0.08),
+              margin: EdgeInsets.only(top: size.height * 0.05),
               child: Text(
                 'Masuk Akun',
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: AppColor.fixsecondarycolor,
+                  color: AppColor.maindarkBlue,
                 ),
               ),
             ),
@@ -61,21 +62,21 @@ class _BodyState extends State<Body> {
                   child: Column(
                     children: [
       
-                      //NAMA PENGGUNA
+                      //EMAIL
                       Padding(
                         padding: const EdgeInsets.only(top: 30),
                         child: PrimaryTextField(
                           focus: false,
                           correct: true,
                           obscure: false,
-                          text: 'Nama Pengguna',
-                          icon: Icons.person,
-                          controller: _userController,
+                          text: 'Email',
+                          icon: Icons.email,
+                          controller: _emailController,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Nama Pengguna tidak boleh kosong';
+                            if (value == Null || value.isEmpty) {
+                              return 'E-mail tidak boleh kosong';
                             }
-                            return null;
+
                           },
                           keyboardType: TextInputType.text,
                         ),
@@ -95,7 +96,6 @@ class _BodyState extends State<Body> {
                             if (value == null || value.isEmpty) {
                               return 'Kata Sandi tidak boleh kosong';
                             }
-                            return null;
                           },
                           keyboardType: TextInputType.visiblePassword,
                         ),
@@ -105,12 +105,14 @@ class _BodyState extends State<Body> {
                       PrimaryButton(
                         text: 'Masuk',
                         press: () {
+
                           if (_formKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Login Process')),
                             );
-                            Navigator.pushNamed(context, '/');
+                            authC.signin(_emailController.text, _passwordController.text, context);
                           }
+
                         },
                         color: AppColor.fixmaincolor,
                         textColor: Colors.black,
@@ -132,7 +134,7 @@ class _BodyState extends State<Body> {
                               ),
                             ),
                             TextSpan(
-                                text: 'klik disini',
+                                text: 'Ganti sandi',
                                 style: TextStyle(
                                   color: AppColor.fixmaincolor,
                                 ),
@@ -153,12 +155,17 @@ class _BodyState extends State<Body> {
             //PEMBATAS
             Container(
               margin: EdgeInsets.symmetric(vertical: 0.5),
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image(
-                    width: size.width * 0.35,
-                    image: AssetImage('assets/images/thick-line.png'),
+                  Expanded(
+                    child: SizedBox(
+                      height: 1.0,
+                      child: Container(
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 20,
@@ -171,30 +178,65 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     width: 20,
                   ),
-                  Image(
-                    width: size.width * 0.35,
-                    image: AssetImage('assets/images/thick-line.png'),
+                  Expanded(
+                    child: SizedBox(
+                      height: 1.0,
+                      child: Container(
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
+
                 ],
               ),
             ),
       
             //LOGIN SSO
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-              child: Row(
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: SecondButton(
-                      text: 'Lanjutkan dengan Google',
-                      press: () {},
-                      icon: Image.asset('assets/icons/google.png'),
-                      color: Colors.white,
-                      textColor: Colors.black,
-                      borderColor: AppColor.fixsecondarycolor, 
-                      shadowColor: Colors.black
+
+                  //LOGIN GOOGLE
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SecondButton(
+                            text: 'Lanjutkan dengan Google',
+                            press: () {},
+                            icon: Image.asset('assets/icons/google.png'),
+                            color: Colors.white,
+                            textColor: Colors.black,
+                            borderColor: AppColor.fixsecondarycolor, 
+                            shadowColor: Colors.black
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+
+                  //LOGIN FACEBOOK
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SecondButton(
+                            text: 'Lanjutkan dengan Facebook',
+                            press: () {},
+                            icon: Image.asset('assets/icons/facebook.png'),
+                            color: Colors.white,
+                            textColor: Colors.black,
+                            borderColor: AppColor.fixsecondarycolor, 
+                            shadowColor: Colors.black
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                 ],
               ),
             ),
