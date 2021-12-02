@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login/main.dart';
 import 'package:login/screens/splashScreen/splash_screen.dart';
+import 'package:login/sistemLoginRegister/screens/forgotPasswordScreen/forgot_password_screen.dart';
 import 'package:login/sistemLoginRegister/screens/loginScreen/login_screen.dart';
 import 'package:login/sistemLoginRegister/screens/registerscreen/register_screen.dart';
 import 'package:login/sistemLoginRegister/screens/welcomeScreen/welcome_screen.dart';
@@ -18,6 +19,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/register':
         return MaterialPageRoute(builder: (_) => RegisterScreen());
+      case '/forgot-password':
+        return MaterialPageRoute(builder: (_) => ForgotPassword());
 
       // case '/':
       //   return MaterialPageRoute(builder: (_) => Bottom_Navbar());

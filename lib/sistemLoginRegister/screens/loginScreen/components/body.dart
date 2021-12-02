@@ -141,7 +141,7 @@ class _BodyState extends State<Body> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.pushNamed(
-                                        context, '/forget-password');
+                                        context, '/forgot-password');
                                   })
                           ],
                         )),

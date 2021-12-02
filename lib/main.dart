@@ -1,7 +1,10 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login/components/loading_screen.dart';
 import 'package:login/routes/app_pages.dart';
 import 'package:login/screens/splashScreen/splash_screen.dart';
 // import 'package:login/screens/splashScreen/splash_screen.dart';
@@ -36,6 +39,15 @@ void main() async {
 //   }
 // }
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
   final authC = Get.put(AuthController(), permanent: true);
@@ -43,6 +55,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: LoadingScreen.init(),
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
       title: 'Kampus Gratis',

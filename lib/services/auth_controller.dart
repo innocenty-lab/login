@@ -131,7 +131,7 @@ class AuthController extends GetxController {
             FirebaseAuth.instance.signOut();
           }
 
-          Get.offAllNamed("/login");
+          Get.offAllNamed("/welcome");
         },
         textConfirm: "Oke, Saya akan cek email",
         buttonColor: AppColor.fixmaincolor,
@@ -179,5 +179,36 @@ class AuthController extends GetxController {
   void logout() async {
     await FirebaseAuth.instance.signOut();
     Get.offAllNamed("/welcome");
+  }
+
+  void resetPassword(String email, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: email
+      );
+
+      Get.defaultDialog(
+        title: "Reset Password",
+        middleText: "Email reset password telah dikirimkan ke $email",
+        onConfirm: () {
+          Get.offAllNamed("/welcome");
+        },
+        textConfirm: "Oke, Saya akan cek email",
+        buttonColor: AppColor.fixmaincolor,
+        confirmTextColor: Colors.black,
+      );
+
+    } catch (e) {
+      print(e);
+      Get.defaultDialog(
+        title: "Terjadi Kesalahan",
+        middleText: "Unable to reset password.",
+        onConfirm: () {
+          Get.back();
+        },
+        textConfirm: "Oke.",
+        confirmTextColor: Colors.black,
+      );
+    }
   }
 }

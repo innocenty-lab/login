@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get.dart';
+// import 'package:get/get_core/src/get_main.dart';
+// import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:login/constants.dart';
 import 'package:login/services/auth_controller.dart';
 import 'package:login/sistemLoginRegister/components/backgrounds.dart';
@@ -106,13 +107,13 @@ class _BodyState extends State<Body> {
                           validator: (value) {
                             String email = _emailController.text;
 
-                            // if (email == Null || email.isEmpty) {
-                            //   return 'E-mail tidak boleh kosong';
-                            // } else if (!email.isEmail()){
-                            //   return 'E-mail tidak valid! ';
-                            // } else {
-                            //   return null;
-                            // }
+                            if (email == "" || email.isEmpty) {
+                              return 'E-mail tidak boleh kosong';
+                            } else if (GetUtils.isEmail(email) == false) {
+                              return 'E-mail tidak valid! ';
+                            } else {
+                              return null;
+                            }
                           },
                           keyboardType: TextInputType.emailAddress,
                         ),
