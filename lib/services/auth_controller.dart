@@ -129,7 +129,7 @@ class AuthController extends GetxController {
             FirebaseAuth.instance.signOut();
           }
 
-          Get.offAllNamed("/login");
+          Get.offAllNamed("/welcome");
         },
         textConfirm: "Oke, Saya akan cek email",
         buttonColor: AppColor.fixmaincolor,

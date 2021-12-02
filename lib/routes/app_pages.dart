@@ -19,7 +19,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/register':
         return MaterialPageRoute(builder: (_) => RegisterScreen());
-      case '/forget-password':
+      case '/forgot-password':
         return MaterialPageRoute(builder: (_) => ForgotPassword());
 
       // case '/':

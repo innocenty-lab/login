@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
 import 'package:login/constants.dart';
 import 'package:login/services/auth_controller.dart';
 import 'package:login/sistemLoginRegister/components/backgrounds.dart';
@@ -12,12 +15,13 @@ class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
-  _bodyState createState() => _bodyState();
+  State<Body> createState() => _BodyState();
 }
 
-class _bodyState extends State<Body> {
+class _BodyState extends State<Body> {
   final TextEditingController _emailController =
       TextEditingController(text: "putraramadhan532@gmail.com");
+
   final authC = Get.find<AuthController>();
   final _formKey = GlobalKey<FormState>();
 
