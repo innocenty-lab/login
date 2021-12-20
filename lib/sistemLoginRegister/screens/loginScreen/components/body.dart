@@ -199,7 +199,6 @@ class _BodyState extends State<Body> {
                       children: [
                         Expanded(
                           child: SecondButton(
-<<<<<<< HEAD
                             text: 'Lanjutkan dengan Google',
                             press: () {
 
@@ -217,15 +216,6 @@ class _BodyState extends State<Body> {
                             borderColor: AppColor.fixsecondarycolor, 
                             shadowColor: Colors.black
                           ),
-=======
-                              text: 'Lanjutkan dengan Google',
-                              press: () {},
-                              icon: Image.asset('assets/icons/google.png'),
-                              color: Colors.white,
-                              textColor: Colors.black,
-                              borderColor: AppColor.fixsecondarycolor,
-                              shadowColor: Colors.black),
->>>>>>> 4fc7d8f1390f7546337e35dd01c9b52c93f278bc
                         ),
                       ],
                     ),
