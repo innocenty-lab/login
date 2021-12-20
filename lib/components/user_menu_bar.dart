@@ -8,6 +8,8 @@ class UserMenuBar extends StatefulWidget {
 }
 
 class _UserMenuBarState extends State<UserMenuBar> {
+
+  String? finalemail;
   String? finalname;
 
   @override
@@ -18,8 +20,10 @@ class _UserMenuBarState extends State<UserMenuBar> {
 
   Future getAuth() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    var obtainedemail = prefs.getString('email');
     var obtainedname = prefs.getString('name');
     setState(() {
+      finalemail = obtainedemail;
       finalname = obtainedname;
     });
   }
@@ -44,16 +48,38 @@ class _UserMenuBarState extends State<UserMenuBar> {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Hello,\n",
+                    text: "Hello, \n",
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 10.0,
                       color: Color.fromRGBO(152, 156, 173, 1),
                     ),
                   ),
                   TextSpan(
-                    text: "$finalname",
+                    text: "Email, ",
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 10.0,
+                      color: Color.fromRGBO(152, 156, 173, 1),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "$finalname" + "\n",
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.primaryTextColor,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "$finalemail",
+                    style: TextStyle(
+                      fontSize: 12.0,
                       fontWeight: FontWeight.w600,
                       color: AppColor.primaryTextColor,
                     ),

@@ -20,10 +20,10 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
-  final TextEditingController _userController = TextEditingController();
+  final TextEditingController _userController = TextEditingController(text: "putra");
   final TextEditingController _emailController = TextEditingController(text: "putraramadhan532@gmail.com");
   final TextEditingController _passwordController = TextEditingController(text: "123123123");
-  final TextEditingController _repeatPasswordController = TextEditingController();
+  // final TextEditingController _repeatPasswordController = TextEditingController();
   final authC = Get.find<AuthController>();
   final _formKey = GlobalKey<FormState>();
 
@@ -66,33 +66,33 @@ class _BodyState extends State<Body> {
                     children: [
       
                       //NAMA PENGGUNA
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 30, bottom: 10),
-                      //   child: PrimaryTextField(
-                      //     focus: false,
-                      //     correct: true,
-                      //     obscure: false,
-                      //     icon: Icons.person,
-                      //     text: 'Nama Pengguna',
-                      //     controller: _userController,
-                      //     validator: (value) {
-                      //       String username = _userController.text;
+                      Padding(
+                        padding: const EdgeInsets.only(top: 30, bottom: 10),
+                        child: PrimaryTextField(
+                          focus: false,
+                          correct: true,
+                          obscure: false,
+                          icon: Icons.person,
+                          text: 'Nama Pengguna',
+                          controller: _userController,
+                          validator: (value) {
+                            String username = _userController.text;
 
-                      //       // if (username == Null || username.isEmpty) {
-                      //       //   return 'Nama Pengguna tidak boleh kosong!';
-                      //       // } else if (!username.isUsername()) {
-                      //       //   return 'Nama Pengguna tidak valid!';
-                      //       // } else if (username.length < 8) {
-                      //       //   return 'Nama Pengguna minimal 8 karakter!';
-                      //       // } else if (username.length > 30) {
-                      //       //   return 'Nama Pengguna maximal 30 karakter!';
-                      //       // } else {
-                      //       //   return null;
-                      //       // }
-                      //     },
-                      //     keyboardType: TextInputType.text,
-                      //   ),
-                      // ),
+                            // if (username == Null || username.isEmpty) {
+                            //   return 'Nama Pengguna tidak boleh kosong!';
+                            // } else if (!username.isUsername()) {
+                            //   return 'Nama Pengguna tidak valid!';
+                            // } else if (username.length < 8) {
+                            //   return 'Nama Pengguna minimal 8 karakter!';
+                            // } else if (username.length > 30) {
+                            //   return 'Nama Pengguna maximal 30 karakter!';
+                            // } else {
+                            //   return null;
+                            // }
+                          },
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
 
                       //EMAIL
                       Padding(

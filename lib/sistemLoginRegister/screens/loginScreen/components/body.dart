@@ -205,7 +205,16 @@ class _BodyState extends State<Body> {
                         Expanded(
                           child: SecondButton(
                             text: 'Lanjutkan dengan Google',
-                            press: () {},
+                            press: () {
+
+                              if (_formKey.currentState!.validate()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Login Process')),
+                                );
+                                authC.signInWithGoogle();
+                              }
+
+                            },
                             icon: Image.asset('assets/icons/google.png'),
                             color: Colors.white,
                             textColor: Colors.black,

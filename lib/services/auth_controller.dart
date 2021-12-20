@@ -1,13 +1,68 @@
+// import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:login/constants.dart';
 import 'package:login/screens/homeScreen/home_screen.dart';
+// import 'package:login/services/auth_api.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Stream<User?> get streamAuthStatus => auth.authStateChanges();
+
+  // void setAuth(String email) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('email', 'useremail@gmail.com');
+  // }
+
+  void signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    // return await FirebaseAuth.instance.signInWithCredential(credential);
+    UserCredential userCredential = await auth.signInWithCredential(credential);
+    print("cek data : ${userCredential.user?.emailVerified}");
+    Get.offAll(HomeScreen());
+  }
+
+  // Future<UserCredential> signInWithFacebook() async {
+  //   // Trigger the sign-in flow
+  //   final LoginResult loginResult = await FacebookAuth.instance.login();
+
+  //   // Create a credential from the access token
+  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
+
+  //   // Once signed in, return the UserCredential
+  //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  // }
+
+  void signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    // Once signed in, return the UserCredential
+    // return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    UserCredential userCredential = await auth.signInWithCredential(facebookAuthCredential);
+    print("cek data : ${userCredential.user?.emailVerified}");
+    Get.offAll(HomeScreen());
+  }
 
   void signin(String email, String password, BuildContext context) async {
     try {
@@ -19,7 +74,30 @@ class AuthController extends GetxController {
       print("cek data : ${myUser.user?.emailVerified}");
 
       if (myUser.user!.emailVerified) {
+
+        // var token = await auth.currentUser!.getIdToken();
+        // print(token);
+        // var data = {'Firebasetoken': token};
+        // var res = await Network().authData(data, '/login');
+        // var body = json.decode(res.body);
+        // print(body);
+        // if (body['success']) {
+        //   SharedPreferences localStorage =
+        //       await SharedPreferences.getInstance();
+        //   localStorage.setString(
+        //       'token', json.encode(body['access_token']).replaceAll('"', ''));
+        //   localStorage.setString(
+        //       'email', json.encode(body['email']).replaceAll('"', ''));
+        //   localStorage.setString(
+        //       'name', json.encode(body['name']).replaceAll('"', ''));
+        //   print(token);
+        //   Get.offAllNamed('/');
+        // } else {
+        //   print("gagal");
+        // }
+
         Get.offAll(HomeScreen());
+        // Get.offAllNamed("/");
       } else {
         Get.defaultDialog(
           title: "Verification Email",
