@@ -230,7 +230,14 @@ class _BodyState extends State<Body> {
                         Expanded(
                           child: SecondButton(
                               text: 'Lanjutkan dengan Facebook',
-                              press: () {},
+                              press: () {
+                                if (_formKey.currentState!.validate()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Login Process')),
+                                  );
+                                  authC.signInWithFacebook();
+                                }
+                              },
                               icon: Image.asset('assets/icons/facebook.png'),
                               color: Colors.white,
                               textColor: Colors.black,
