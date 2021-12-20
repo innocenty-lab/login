@@ -67,9 +67,7 @@ class AuthController extends GetxController {
   void signin(String email, String password, BuildContext context) async {
     try {
       UserCredential myUser = await auth.signInWithEmailAndPassword(
-        email: email, 
-        password: password
-      );
+          email: email, password: password);
 
       print("cek data : ${myUser.user?.emailVerified}");
 
@@ -101,7 +99,8 @@ class AuthController extends GetxController {
       } else {
         Get.defaultDialog(
           title: "Verification Email",
-          middleText: "Email perlu diverifikasi terlebih dahulu, Verifikasi ulang?",
+          middleText:
+              "Email perlu diverifikasi terlebih dahulu, Verifikasi ulang?",
           onConfirm: () async {
             Get.back();
             try {
@@ -117,8 +116,9 @@ class AuthController extends GetxController {
                 buttonColor: AppColor.fixmaincolor,
                 confirmTextColor: Colors.black,
               );
-            } catch(e) {
-              if (e.toString().contains("We have blocked all requests from this device due to unusual activity. Try again later.")) {
+            } catch (e) {
+              if (e.toString().contains(
+                  "We have blocked all requests from this device due to unusual activity. Try again later.")) {
                 // Get.snackbar();
                 Get.defaultDialog(
                   title: "Verification Email",
@@ -149,10 +149,9 @@ class AuthController extends GetxController {
           textCancel: "Kembali",
           buttonColor: AppColor.fixmaincolor,
           confirmTextColor: Colors.black,
-          cancelTextColor:Colors.black,
+          cancelTextColor: Colors.black,
         );
       }
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -185,15 +184,14 @@ class AuthController extends GetxController {
   bool isUserAlreadyLogin() {
     FirebaseAuth fUser = FirebaseAuth.instance;
 
-    return fUser.currentUser != null && (fUser.currentUser?.emailVerified?? false);
+    return fUser.currentUser != null &&
+        (fUser.currentUser?.emailVerified ?? false);
   }
 
   void signup(String email, String password, BuildContext context) async {
     try {
-      final UserCredential myUser = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password
-      );
+      final UserCredential myUser = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
       await myUser.user!.sendEmailVerification();
       Get.defaultDialog(
         title: "Verification Email",
@@ -259,34 +257,26 @@ class AuthController extends GetxController {
     Get.offAllNamed("/welcome");
   }
 
-  void resetPassword(String email, BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(
-        email: email
-      );
-
+  void resetPassword(String email) async {
+    if (email != '' && GetUtils.isEmail(email)) {
+      try {
+        await auth.sendPasswordResetEmail(email: email);
+        Get.defaultDialog(
+            title: 'Berhasil',
+            middleText: 'Kami telah mengirimkan reset password ke $email',
+            onConfirm: () {
+              Get.back(); //close dialog
+              Get.back(); //go to login page
+            },
+            textConfirm: 'OK');
+      } catch (e) {
+        Get.defaultDialog(
+            title: 'Terjadi Kesalahan',
+            middleText: 'Tidak dapat mengirimkan reset password');
+      }
+    } else {
       Get.defaultDialog(
-        title: "Reset Password",
-        middleText: "Email reset password telah dikirimkan ke $email",
-        onConfirm: () {
-          Get.offAllNamed("/welcome");
-        },
-        textConfirm: "Oke, Saya akan cek email",
-        buttonColor: AppColor.fixmaincolor,
-        confirmTextColor: Colors.black,
-      );
-
-    } catch (e) {
-      print(e);
-      Get.defaultDialog(
-        title: "Terjadi Kesalahan",
-        middleText: "Unable to reset password.",
-        onConfirm: () {
-          Get.back();
-        },
-        textConfirm: "Oke.",
-        confirmTextColor: Colors.black,
-      );
+          title: 'Terjadi Kesalahan', middleText: 'Email tidak valid');
     }
   }
 }

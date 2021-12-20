@@ -9,18 +9,18 @@ import 'package:login/sistemLoginRegister/components/primary_button.dart';
 import 'package:login/sistemLoginRegister/components/second_button.dart';
 import 'package:login/sistemLoginRegister/components/text_field.dart';
 
-
 class Body extends StatefulWidget {
-  const Body({ Key? key }) : super(key: key);
+  const Body({Key? key}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-
-  final TextEditingController _emailController = TextEditingController(text: "putraramadhan532@gmail.com");
-  final TextEditingController _passwordController = TextEditingController(text: "123123123");
+  final TextEditingController _emailController =
+      TextEditingController(text: "putraramadhan532@gmail.com");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "123123123");
   final authC = Get.find<AuthController>();
   final _formKey = GlobalKey<FormState>();
 
@@ -32,7 +32,6 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
             //HEADER
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -57,11 +56,10 @@ class _BodyState extends State<Body> {
               child: Form(
                 key: _formKey,
                 child: Padding(
-                  padding: 
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Column(
                     children: [
-      
                       //EMAIL
                       Padding(
                         padding: const EdgeInsets.only(top: 30),
@@ -76,12 +74,11 @@ class _BodyState extends State<Body> {
                             if (value == Null || value.isEmpty) {
                               return 'E-mail tidak boleh kosong';
                             }
-
                           },
                           keyboardType: TextInputType.text,
                         ),
                       ),
-      
+
                       //KATA SANDI
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
@@ -100,19 +97,18 @@ class _BodyState extends State<Body> {
                           keyboardType: TextInputType.visiblePassword,
                         ),
                       ),
-      
+
                       //TOMBOL MASUK
                       PrimaryButton(
                         text: 'Masuk',
                         press: () {
-
                           if (_formKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Login Process')),
                             );
-                            authC.signin(_emailController.text, _passwordController.text, context);
+                            authC.signin(_emailController.text,
+                                _passwordController.text, context);
                           }
-
                         },
                         color: AppColor.fixmaincolor,
                         textColor: Colors.black,
@@ -120,7 +116,7 @@ class _BodyState extends State<Body> {
                         shadowColor: Colors.black,
                         borderColor: AppColor.fixmaincolor,
                       ),
-      
+
                       //LUPA KATA SANDI
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -186,24 +182,24 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
-      
+
             //LOGIN SSO
             Container(
               margin: EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 children: [
-
                   //LOGIN GOOGLE
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     child: Row(
                       children: [
                         Expanded(
                           child: SecondButton(
+<<<<<<< HEAD
                             text: 'Lanjutkan dengan Google',
                             press: () {
 
@@ -221,6 +217,15 @@ class _BodyState extends State<Body> {
                             borderColor: AppColor.fixsecondarycolor, 
                             shadowColor: Colors.black
                           ),
+=======
+                              text: 'Lanjutkan dengan Google',
+                              press: () {},
+                              icon: Image.asset('assets/icons/google.png'),
+                              color: Colors.white,
+                              textColor: Colors.black,
+                              borderColor: AppColor.fixsecondarycolor,
+                              shadowColor: Colors.black),
+>>>>>>> 4fc7d8f1390f7546337e35dd01c9b52c93f278bc
                         ),
                       ],
                     ),
@@ -228,32 +233,29 @@ class _BodyState extends State<Body> {
 
                   //LOGIN FACEBOOK
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     child: Row(
                       children: [
                         Expanded(
                           child: SecondButton(
-                            text: 'Lanjutkan dengan Facebook',
-                            press: () {},
-                            icon: Image.asset('assets/icons/facebook.png'),
-                            color: Colors.white,
-                            textColor: Colors.black,
-                            borderColor: AppColor.fixsecondarycolor, 
-                            shadowColor: Colors.black
-                          ),
+                              text: 'Lanjutkan dengan Facebook',
+                              press: () {},
+                              icon: Image.asset('assets/icons/facebook.png'),
+                              color: Colors.white,
+                              textColor: Colors.black,
+                              borderColor: AppColor.fixsecondarycolor,
+                              shadowColor: Colors.black),
                         ),
                       ],
                     ),
                   ),
-
                 ],
               ),
             ),
-            
           ],
         ),
       ),
     );
   }
-
 }
