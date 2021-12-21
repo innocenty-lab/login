@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">login</string>
-    <string name="facebook_app_id">723565561952652</string>
-    <string name="fb_login_protocol_scheme">fb723565561952652</string>
+    <string name="facebook_app_id">335559821729449</string>
+    <string name="fb_login_protocol_scheme">fb335559821729449</string>
 </resources>

@@ -39,38 +39,79 @@ class AuthController extends GetxController {
     Get.offAll(HomeScreen());
   }
 
+  // void signInWithFacebook() async {
+
+  //   try {
+  //     // Trigger the sign-in flow
+  //     final LoginResult loginResult = await FacebookAuth.instance.login();
+  //     final userData = await FacebookAuth.instance.getUserData();
+
+  //     if(loginResult.status == LoginStatus.success){
+  //       // Create a credential from the access token
+  //       final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+  //       // Once signed in, return the UserCredential
+  //       // return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  //       UserCredential userCredential = await auth.signInWithCredential(facebookAuthCredential);
+  //       print("cek data : ${userCredential.user?.emailVerified}");
+
+  //       // await FirebaseFirestore.i
+
+  //       Get.offAll(HomeScreen());
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
   // Future<UserCredential> signInWithFacebook() async {
-  //   // Trigger the sign-in flow
-  //   final LoginResult loginResult = await FacebookAuth.instance.login();
+  //   Map<String, dynamic>? _userData;
 
-  //   // Create a credential from the access token
-  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
+  //   final LoginResult result = await FacebookAuth.instance.login(permissions:['email']);
 
-  //   // Once signed in, return the UserCredential
+
+  //   if (result.status == LoginStatus.success) {
+
+  //     final userData = await FacebookAuth.instance.getUserData();
+
+  //     _userData = userData;
+  //   } else {
+  //     print(result.message);
+  //   }
+
+  //   // setState(() {
+  //   //   welcome = _userData?['email'];
+  //   // });
+
+
+  //   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken!.token);
+
+  //   print(_userData?['email']);
+
   //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   // }
 
-  void signInWithFacebook() async {
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login(
+      permissions: ['email', 'public_profile']
+    );
 
-    try {
-      // Trigger the sign-in flow
-      final LoginResult loginResult = await FacebookAuth.instance.login();
-      final userData = await FacebookAuth.instance.getUserData();
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-      // Create a credential from the access token
-      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    final userData = await FacebookAuth.instance.getUserData();
 
-      // Once signed in, return the UserCredential
-      // return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-      UserCredential userCredential = await auth.signInWithCredential(facebookAuthCredential);
-      print("cek data : ${userCredential.user?.emailVerified}");
-
-      // await FirebaseFirestore.i
+    if(loginResult.status == LoginStatus.success){
+      print("SUKSES");
+      var userEmail = userData["email"];
+      print("Email Facebook : $userEmail");
 
       Get.offAll(HomeScreen());
-    } catch (e) {
-      print(e);
     }
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
   void signin(String email, String password, BuildContext context) async {
@@ -264,6 +305,7 @@ class AuthController extends GetxController {
   void logout() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
+    // await FacebookAuth().logOut();
     Get.offAllNamed("/welcome");
   }
 
